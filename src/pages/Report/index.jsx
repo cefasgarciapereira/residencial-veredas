@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import {
+    Link,
     useParams
 } from "react-router-dom"
 
@@ -23,8 +24,8 @@ export default function Report() {
 
     return (
         <div>
-            <h1>Relatório de {month} de {year}</h1>
-
+            <Link to="/">Voltar</Link>
+            <h2>Relatório de {month} de {year}</h2>
             <table>
                 <tr>
                     <th>Data</th>

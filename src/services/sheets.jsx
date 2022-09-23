@@ -1,4 +1,4 @@
-import { parseMonth } from "./utils" 
+import { parseMonthToInt } from "./utils" 
 
 const BASE_URL = "https://opensheet.elk.sh/"
 const SHEET_ID = "1E85UsRGMPkAlh1AaxXHZIlhHDl4lKMoE8IAJCSyQXdw"
@@ -19,7 +19,7 @@ export async function fetchByDate(qMonth, qYear) {
                 .then(data => data.filter(item => {
                     const [day, month, year] = item["Data"].split("/")
                     
-                    if (parseInt(month) === parseMonth(qMonth) && year === qYear){
+                    if (parseInt(month) === parseMonthToInt(qMonth) && year === qYear) {
                         return item
                     }
                 })

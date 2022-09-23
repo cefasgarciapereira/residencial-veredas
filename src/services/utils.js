@@ -1,4 +1,4 @@
-export function parseMonth(month) {
+export function parseMonthToInt(month) {
     let res = 0;
     switch (month) {
         case "janeiro":
@@ -36,6 +36,56 @@ export function parseMonth(month) {
             break;
         case "dezembro":
             res = 12;
+            break;
+        default:
+            break;
+    }
+
+    return res;
+}
+
+export function parseMonthToString(month) {
+    if (month < 0 || month > 12) {
+        throw "Invalid value for month"
+    }
+
+    let res = 0;
+    switch (month) {
+        case 1:
+            res = "janeiro";
+            break;
+        case 2:
+            res = "fevereiro";
+            break;
+        case 3:
+            res = "março";
+            break;
+        case 4:
+            res = "abril";
+            break;
+        case 5:
+            res = "maio";
+            break;
+        case 6:
+            res = "junho";
+            break;
+        case 7:
+            res = "julho";
+            break;
+        case 8:
+            res = "agosto";
+            break;
+        case 9:
+            res = "setembro";
+            break;
+        case 10:
+            res = "outubro";
+            break;
+        case 11:
+            res = "novembro";
+            break;
+        case 12:
+            res = "dezembro";
             break;
         default:
             break;
