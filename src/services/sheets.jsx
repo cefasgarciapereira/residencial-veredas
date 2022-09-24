@@ -25,3 +25,13 @@ export async function fetchByDate(qMonth, qYear) {
                 })
         )))
 }
+
+export function filterByDate(qMonth, qYear, sheets) {
+    return sheets.filter(item => {
+        const [day, month, year] = item["Data"].split("/")
+
+        if (parseInt(month) === parseMonthToInt(qMonth) && year === qYear) {
+            return item
+        }
+    })
+}

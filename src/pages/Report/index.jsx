@@ -1,26 +1,19 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from "react"
 import {
     Link,
     useParams
 } from "react-router-dom"
+import { useSelector } from 'react-redux'
 
-import { fetchByDate } from "../../services/sheets";
+import { fetchByDate, filterByDate } from "../../services/sheets"
 
 export default function Report() {
     const { year, month } = useParams();
-    const [data, setData] = useState(null);
-    const [cashFlow, setCashFlow] = useState();
+    const loading = useSelector((state) => state.sheets.loading)
+    const data = useSelector((state) => filterByDate(month, year, state.sheets.entities))
+    const cashFlow = data.reduce((previousValue, item) => previousValue + parseFloat(item["Valor"].replace("R$ ", "").replace(".", "").replace(",", ".")), 0).toFixed(2)
 
-    useEffect(() => {
-        async function fetchData() {
-            let res = await fetchByDate(month, year);
-            setData(res)
-            setCashFlow(res.reduce((previousValue, item) => previousValue + parseFloat(item["Valor"].replace("R$ ", "").replace(".", "").replace(",", ".")), 0).toFixed(2))
-        }
-        fetchData()
-    }, [])
-
-    if (!data) return "Buscando dados..."
+    if (loading) return "Buscando dados..."
 
     return (
         <div>
