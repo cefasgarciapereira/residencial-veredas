@@ -1,27 +1,23 @@
 import { parseMonthToInt } from "./utils" 
 
-const BASE_URL = "https://opensheet.elk.sh/"
-const SHEET_ID = "1E85UsRGMPkAlh1AaxXHZIlhHDl4lKMoE8IAJCSyQXdw"
-const TAB_NAME = "Página1"
+export function filterByDate(qMonth, qYear, sheets) {
+    return sheets.filter(item => {
+        const [day, month, year] = item["Data"].split("/")
 
-export async function fetchAll() {
-    return fetch(`${BASE_URL}${SHEET_ID}/${TAB_NAME}`)
-    .then(res => (
-        res.json()
-            .then(data => data)
-    ))
+        if (parseInt(month) === parseMonthToInt(qMonth) && year === qYear) {
+            return item
+        }
+    })
 }
 
-export async function fetchByDate(qMonth, qYear) {
-    return fetch(`${BASE_URL}${SHEET_ID}/${TAB_NAME}`)
-        .then(res => (
-            res.json()
-                .then(data => data.filter(item => {
-                    const [day, month, year] = item["Data"].split("/")
-                    
-                    if (parseInt(month) === parseMonthToInt(qMonth) && year === qYear) {
-                        return item
-                    }
-                })
-        )))
+export function calculateCashFlow(data) {
+    return data.reduce((previousValue, item) => previousValue + parseFloat(item["Valor"].replace("R$ ", "").replace(".", "").replace(",", ".")), 0).toFixed(2)
+}
+
+export function calculateExpenses(data) {
+    return data.reduce((previousValue, item) => previousValue + (parseFloat(item["Valor"].replace("R$ ", "").replace(".", "").replace(",", ".")) < 0 ? parseFloat(item["Valor"].replace("R$ ", "").replace(".", "").replace(",", ".")) : 0), 0).toFixed(2)
+}
+
+export function calculateProfit(data) {
+    return data.reduce((previousValue, item) => previousValue + (parseFloat(item["Valor"].replace("R$ ", "").replace(".", "").replace(",", ".")) > 0 ? parseFloat(item["Valor"].replace("R$ ", "").replace(".", "").replace(",", ".")) : 0), 0).toFixed(2)
 }
