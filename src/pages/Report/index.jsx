@@ -1,17 +1,18 @@
-import { useEffect, useState } from "react"
 import {
     Link,
     useParams
 } from "react-router-dom"
 import { useSelector } from 'react-redux'
 
-import { fetchByDate, filterByDate } from "../../services/sheets"
+import Currency from "../../components/Currency"
+
+import { filterByDate, calculateCashFlow } from "../../services/sheets"
 
 export default function Report() {
     const { year, month } = useParams();
     const loading = useSelector((state) => state.sheets.loading)
     const data = useSelector((state) => filterByDate(month, year, state.sheets.entities))
-    const cashFlow = data.reduce((previousValue, item) => previousValue + parseFloat(item["Valor"].replace("R$ ", "").replace(".", "").replace(",", ".")), 0).toFixed(2)
+    const cashFlow = calculateCashFlow(data)
 
     if (loading) return "Buscando dados..."
 
@@ -37,14 +38,10 @@ export default function Report() {
             </table>
 
             <h3>
-                Fluxo de Caixa:{" "}
-                <b
-                    style={{
-                        color: cashFlow < 0 ? "red" : "lightgreen"
-                    }}
-                >
-                    R$ {cashFlow}
-                </b>
+                <Currency
+                    label="Fluxo de Caixa"
+                    value={cashFlow}
+                />
             </h3>
         </div>
     )
