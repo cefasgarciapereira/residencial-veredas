@@ -1,11 +1,16 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
+import { calculateCashFlow, calculateExpenses, calculateProfit } from '../services/sheets'
+
 const BASE_URL = "https://opensheet.elk.sh/"
 const SHEET_ID = "1E85UsRGMPkAlh1AaxXHZIlhHDl4lKMoE8IAJCSyQXdw"
 const TAB_NAME = "Página1"
 
 const initialState = {
     entities: [],
+    totalInAccount: 0,
+    totalExpenses: 0,
+    totalProfit: 0,
     loading: false,
     currentRequestId: undefined,
     error: null
@@ -39,6 +44,9 @@ export const sheetsSlice = createSlice({
                     state.currentRequestId === requestId
                 ) {
                     state.loading = false
+                    state.totalInAccount = calculateCashFlow(action.payload)
+                    state.totalExpenses = calculateExpenses(action.payload)
+                    state.totalProfit = calculateProfit(action.payload)
                     state.entities = action.payload
                     state.currentRequestId = undefined
                 }

@@ -21,20 +21,24 @@ export default function Report() {
             <Link to="/">Voltar</Link>
             <h2>Relatório de {month} de {year}</h2>
             <table>
-                <tr>
-                    <th>Data</th>
-                    <th>Morador</th>
-                    <th>Valor</th>
-                    <th>Observação</th>
-                </tr>
-                {data.map(item =>
+                <thead>
                     <tr>
-                        <td>{item["Data"]}</td>
-                        <td>{item["Morador"]}</td>
-                        <td>{item["Valor"]}</td>
-                        <td>{item["Observação"]}</td>
+                        <th>Data</th>
+                        <th>Morador</th>
+                        <th>Valor</th>
+                        <th>Observação</th>
                     </tr>
-                )}
+                </thead>
+                <tbody>
+                    {data.map(item =>
+                        <tr key={`${item["Valor"]}${item["Morador"]}`}>
+                            <td>{item["Data"]}</td>
+                            <td>{item["Morador"]}</td>
+                            <td>{item["Valor"]}</td>
+                            <td>{item["Observação"]}</td>
+                        </tr>
+                    )}
+                </tbody>
             </table>
 
             <h3>
