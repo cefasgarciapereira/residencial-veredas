@@ -1,10 +1,10 @@
 export default function Currency({ label, value }) {
     return (
         <>
-            {label}:{" "}
+            {label && `${label}: `}
             <b
                 style={{
-                    color: value < 0 ? "red" : "lightgreen"
+                    color: value < 0 ? "red" : "green"
                 }}
             >
                 R$ {value}

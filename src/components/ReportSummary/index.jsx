@@ -13,24 +13,40 @@ export default function ReportSummary() {
     return (
         <>
             <h2>Resumo de todo período</h2>
-            <h4>
-                <Currency
-                    label="Entrada"
-                    value={totalProfit}
-                />
-            </h4>
-            <h4>
-                <Currency
-                    label="Gastos"
-                    value={totalExpenses}
-                />
-            </h4>
-            <h3>
-                <Currency
-                    label="Total em conta"
-                    value={totalInAccount}
-                />
-            </h3>
+            <table>
+                <thead>
+                    <tr>
+                        <td>Tipo</td>
+                        <td>Valor</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Entrada</td>
+                        <td>
+                            <Currency
+                                value={totalProfit}
+                            />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Gastos</td>
+                        <td>
+                            <Currency
+                                value={totalExpenses}
+                            />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Total em conta</td>
+                        <td>
+                            <Currency
+                                value={totalInAccount}
+                            />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </>
     )
 }

@@ -39,14 +39,21 @@ export default function Report() {
                         </tr>
                     )}
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <td>
+                            <h3>
+                                Fluxo de caixa
+                            </h3>
+                        </td>
+                        <td></td>
+                        <td>
+                            <Currency value={cashFlow} />
+                        </td>
+                        <td></td>
+                    </tr>
+                </tfoot>
             </table>
-
-            <h3>
-                <Currency
-                    label="Fluxo de Caixa"
-                    value={cashFlow}
-                />
-            </h3>
         </div>
     )
 }
