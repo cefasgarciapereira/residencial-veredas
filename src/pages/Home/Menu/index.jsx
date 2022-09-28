@@ -15,7 +15,7 @@ export default function Menu() {
         const today = new Date();
         let newMenu = []
 
-        let month = 8;
+        let month = 4;
         let year = 2020;
 
         while (year <= today.getFullYear()) {
