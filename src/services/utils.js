@@ -93,3 +93,13 @@ export function parseMonthToString(month) {
 
     return res;
 }
+
+export function brlStringToFloat(brlString) {
+    const cleanedString = brlString.replace("R$", "").trim();
+    const numberString = cleanedString.replace(".", "").replace(",", ".");
+    return parseFloat(numberString);
+}
+
+export function floatToBrlString(value) {
+    return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+}
