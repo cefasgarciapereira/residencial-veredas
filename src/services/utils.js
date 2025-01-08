@@ -103,3 +103,23 @@ export function brlStringToFloat(brlString) {
 export function floatToBrlString(value) {
     return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 }
+
+export function getMinimumValueFromArray(arr) {
+    let minimum = arr[0]
+    arr.forEach(item => {
+        if (item < minimum) {
+            minimum = item
+        }
+    })
+    return minimum
+}
+
+export function getMaximumValueFromArray(arr) {
+    let max = arr[0]
+    arr.forEach(item => {
+        if (item > max) {
+            max = item
+        }
+    })
+    return max
+}
