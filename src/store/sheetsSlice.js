@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
-import { buildIncomes, calculateCashFlow, calculateExpenses, calculateProfit } from '../services/sheets'
+import { buildBalances, buildCashFlow, buildIncomes, buildOutcomes, calculateCashFlow, calculateExpenses, calculateProfit } from '../services/sheets'
 
 const BASE_URL = "https://opensheet.elk.sh/"
 const SHEET_ID = "1E85UsRGMPkAlh1AaxXHZIlhHDl4lKMoE8IAJCSyQXdw"
@@ -12,6 +12,9 @@ const initialState = {
     totalExpenses: 0,
     totalProfit: 0,
     incomes: [],
+    outcomes: [],
+    cashflow: [],
+    balances: [],
     loading: false,
     currentRequestId: undefined,
     error: null
@@ -51,6 +54,9 @@ export const sheetsSlice = createSlice({
                     state.entities = action.payload
                     state.currentRequestId = undefined
                     state.incomes = buildIncomes(action.payload)
+                    state.outcomes = buildOutcomes(action.payload)
+                    state.cashflow = buildCashFlow(action.payload)
+                    state.balances = buildBalances(action.payload)
                 }
             })
             .addCase(fetchSheets.rejected, (state, action) => {
@@ -66,7 +72,5 @@ export const sheetsSlice = createSlice({
             })
     },
 })
-
-//export const { filterByDate } = sheetsSlice.actions
 
 export default sheetsSlice.reducer

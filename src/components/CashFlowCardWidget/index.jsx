@@ -9,39 +9,40 @@ import { useSelector } from 'react-redux'
 
 import { parseMonthToString, getMaximumValueFromArray, getMinimumValueFromArray } from "../../services/utils"
 
-const IncomeCardWidget = () => {
+const OutcomeCardWidget = () => {
   const { sheets } = useSelector((state) => state)
-  const { incomes, loading, error } = sheets
+  const { cashflow, loading, error } = sheets
+
+  const totalCashFlow = () => parseFloat(cashflow.reduce((total, item) => total + item.value, 0)).toFixed(2)
 
   if (error) return "Erro ao calcular o total na conta"
 
   if (loading) return null;
-
   return (
     <CWidgetStatsA
-      color="info"
+      color={totalCashFlow() < 0 ? "success" : "danger"}
       value={
         <>
-          R$ {parseFloat(incomes.reduce((total, item) => total + item.value, 0)).toFixed(2)}{' '}
+          R$ {totalCashFlow()}{' '}
           <span className="fs-6 fw-normal">
             (40.9% <CIcon icon={cilArrowTop} />)
           </span>
         </>
       }
-      title="Receita"
+      title="Fluxo de Caixa"
       chart={
         <CChartLine
           className="mt-3 mx-3"
           style={{ height: '70px' }}
           data={{
-            labels: incomes.map(item => parseMonthToString(item.month)),
+            labels: cashflow.map(item => parseMonthToString(item.month)),
             datasets: [
               {
                 label: 'Receita',
                 backgroundColor: 'transparent',
                 borderColor: 'rgba(255,255,255,.55)',
-                pointBackgroundColor: '#39f',
-                data: incomes.map(item => item.value),
+                data: cashflow.map(item => item.value),
+                pointBackgroundColor: 'transparent',
               },
             ],
           }}
@@ -66,8 +67,8 @@ const IncomeCardWidget = () => {
                 },
               },
               y: {
-                min: getMinimumValueFromArray(incomes.map(item => item.value)) * 0.5,
-                max: getMaximumValueFromArray(incomes.map(item => item.value)) * 1.1,
+                min: getMinimumValueFromArray(cashflow.map(item => item.value)) * 0.5,
+                max: getMaximumValueFromArray(cashflow.map(item => item.value)) * 1.1,
                 display: false,
                 grid: {
                   display: false,
@@ -94,4 +95,4 @@ const IncomeCardWidget = () => {
   )
 }
 
-export default IncomeCardWidget
+export default OutcomeCardWidget

@@ -9,9 +9,9 @@ import { useSelector } from 'react-redux'
 
 import { parseMonthToString, getMaximumValueFromArray, getMinimumValueFromArray } from "../../services/utils"
 
-const IncomeCardWidget = () => {
+const BalancesCardWidget = () => {
   const { sheets } = useSelector((state) => state)
-  const { incomes, loading, error } = sheets
+  const { totalInAccount, balances, loading, error } = sheets
 
   if (error) return "Erro ao calcular o total na conta"
 
@@ -22,7 +22,7 @@ const IncomeCardWidget = () => {
       color="info"
       value={
         <>
-          R$ {parseFloat(incomes.reduce((total, item) => total + item.value, 0)).toFixed(2)}{' '}
+          R$ {totalInAccount}{' '}
           <span className="fs-6 fw-normal">
             (40.9% <CIcon icon={cilArrowTop} />)
           </span>
@@ -34,14 +34,14 @@ const IncomeCardWidget = () => {
           className="mt-3 mx-3"
           style={{ height: '70px' }}
           data={{
-            labels: incomes.map(item => parseMonthToString(item.month)),
+            labels: balances.map(item => parseMonthToString(item.date)),
             datasets: [
               {
                 label: 'Receita',
                 backgroundColor: 'transparent',
                 borderColor: 'rgba(255,255,255,.55)',
                 pointBackgroundColor: '#39f',
-                data: incomes.map(item => item.value),
+                data: balances.map(item => item.value),
               },
             ],
           }}
@@ -61,13 +61,13 @@ const IncomeCardWidget = () => {
                   display: false,
                 },
                 ticks: {
-                  display: true,
+                  display: false,
                   color: 'rgba(255,255,255,.55)'
                 },
               },
               y: {
-                min: getMinimumValueFromArray(incomes.map(item => item.value)) * 0.5,
-                max: getMaximumValueFromArray(incomes.map(item => item.value)) * 1.1,
+                min: getMinimumValueFromArray(balances.map(item => item.value)) * 2,
+                max: getMaximumValueFromArray(balances.map(item => item.value)) * 1.5,
                 display: false,
                 grid: {
                   display: false,
@@ -94,4 +94,4 @@ const IncomeCardWidget = () => {
   )
 }
 
-export default IncomeCardWidget
+export default BalancesCardWidget

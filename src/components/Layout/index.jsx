@@ -15,7 +15,7 @@ import {
 } from '@coreui/react'
 
 import CIcon from '@coreui/icons-react'
-import { cilDollar, cilPuzzle, cilDrop, cilLightbulb, cilPhone, cilCamera, cilCircle } from '@coreui/icons'
+import { cilDollar, cilHome, cilDrop, cilLightbulb, cilPhone, cilCamera } from '@coreui/icons'
 
 import { useMonths } from '../../hooks/useMonths'
 
@@ -37,6 +37,9 @@ const Layout = ({ children }) => {
               <CSidebarBrand href='/'>Residencial Veredas</CSidebarBrand>
             </CSidebarHeader>
             <CSidebarNav>
+              <CNavItem href="/">
+                <CIcon customClassName="nav-icon" icon={cilHome} /> Home
+              </CNavItem>
               <CNavTitle>Financeiro</CNavTitle>
               <CNavGroup
                 toggler={
