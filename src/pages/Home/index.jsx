@@ -4,7 +4,6 @@ import {
     CRow
 } from '@coreui/react'
 
-import ReportSummary from "../../components/ReportSummary"
 import PaymentPerPerson from "../../components/PaymentPerPerson"
 
 import BalancesCardWidget from "../../components/BalancesCardWidget"
@@ -17,10 +16,8 @@ export default function Home() {
         <>
             <h1>Relatório financeiro do Residencial Veredas</h1>
             <CContainer>
-                <CRow>
+                <CRow xs={{ rows: '*' }} md={{ rows: 1 }} className='gap-2'>
                     <CCol><BalancesCardWidget /></CCol>
-                </CRow>
-                <CRow>
                     <CCol><IncomeCardWidget /></CCol>
                     <CCol><OutcomeCardWidget /></CCol>
                     <CCol><CashFlowCardWidget /></CCol>
