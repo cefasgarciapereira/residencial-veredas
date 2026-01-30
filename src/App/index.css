@@ -1,9 +1,1 @@
-table,
-th,
-td {
-    border: 1px solid black;
-}
-
-td {
-    padding: 5px;
-}
+/* App styles - now handled by Tailwind CSS */
