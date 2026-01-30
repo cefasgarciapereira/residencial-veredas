@@ -7,6 +7,8 @@ import { fetchSheets } from "../store/sheetsSlice"
 
 import Home from "../pages/Home"
 import Report from "../pages/Report";
+import SecurityCamera from "../pages/SecurityCamera";
+import YearlyReport from "../pages/YearlyReport";
 import { useEffect } from "react";
 
 const router = createBrowserRouter([
@@ -17,6 +19,14 @@ const router = createBrowserRouter([
     {
         path: ":year/:month",
         element: <Report />
+    },
+    {
+        path: "camera-de-seguranca",
+        element: <SecurityCamera />
+    },
+    {
+        path: "relatorio/:year",
+        element: <YearlyReport />
     }
 ]);
 
